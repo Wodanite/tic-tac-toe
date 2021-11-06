@@ -1,9 +1,15 @@
 #gameboard{
     display: flex;
+    flex-wrap: wrap;
+    width: 320px;
 }
 
 .first, .second, .third{
     height: 100px;
     width: 100px;
     border: 1px solid black;
+}
+
+#gameboard>div{
+    display: flex;
 }

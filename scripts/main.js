@@ -59,7 +59,7 @@ const displayController = (() => {
         let id = 1;
         for (let y = 0; y < 3; y++){
             for (let x = 0; x < 3; x++){
-                let mark = gameboard.showGameboard(x, y);
+                let mark = gameboard.showGameboard(y, x);
                 let indexString = "box" + id.toString();
                 const currentBox = document.querySelector(`#${indexString}`);
                 currentBox.textContent = mark;
