@@ -15,17 +15,30 @@ const gameboard = (() => {
         } else {
             return false;
         }
-    }
+    };
     
     for (let i = 1; i < 10; i++){
         let indexString = "box" + i.toString();
         const currentBox = document.querySelector(`#${indexString}`);
         currentBox.addEventListener("click", () => {
-            console.log(currentBox.id);
+            const list = currentBox.classList;
+            const [x, y] = getCoordinates(list);
+            console.log(x, y);
         });
     }
 
-    return { showGameboard, checkIfLegalMove };
+    function getCoordinates(list) {
+        let x = 0;
+        let y = 0;
+
+        const coordinate = list[0];
+        x = coordinate.slice(1, 2);
+        y = coordinate.slice(3);
+
+        return [x, y];
+    }
+
+    return { showGameboard, checkIfLegalMove, getCoordinates };
 })();
 
 const Player = (name, mark) => {
