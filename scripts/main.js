@@ -28,5 +28,19 @@ const gameFlow = (() => {
 })();
 
 const displayController = (() => {
-    console.log(gameboard.showGameboard(1,1));
+    const renderGameboard = () => {
+        let id = 1;
+        for (let y = 0; y < 3; y++){
+            for (let x = 0; x < 3; x++){
+                let mark = gameboard.showGameboard(y, x);
+                let indexString = "box" + id.toString();
+                const currentBox = document.querySelector(`#${indexString}`);
+                currentBox.textContent = mark;
+                id++;
+            }
+        }
+    }
+    return { renderGameboard };
 })();
+
+displayController.renderGameboard();
