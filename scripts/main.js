@@ -7,10 +7,17 @@ const gameboard = (() => {
         ["", "", "O"]
     ];
 
-    const showGameboard = (x,y) => gameboardFields[x][y];
-    return {
-        showGameboard
+    const showGameboard = (x, y) => gameboardFields[x][y];
+    
+    for (let i = 1; i < 10; i++){
+        let indexString = "box" + i.toString();
+        const currentBox = document.querySelector(`#${indexString}`);
+        currentBox.addEventListener("click", () => {
+            console.log(currentBox.id);
+        });
     }
+
+    return { showGameboard };
 })();
 
 const Player = (name, mark) => {
@@ -24,7 +31,27 @@ const player1 = Player("Player 1", "X");
 const player2 = Player("Player 2", "O");
 
 const gameFlow = (() => {
-    
+    let endOfGame = false;
+    let turnOfPlayer = player1;
+    const switchTurn = () => {
+        if (turnOfPlayer = player1) {
+            turnOfPlayer = player2;
+        } else {
+            turnOfPlayer = player1;
+        }
+    }
+    /*
+    do {
+
+
+
+
+
+        displayController.renderGameboard();
+        gameFlow.switchTurn();
+    } while (endOfGame == false);
+    */
+    return { endOfGame, turnOfPlayer, switchTurn };
 })();
 
 const displayController = (() => {
