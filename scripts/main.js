@@ -8,6 +8,14 @@ const gameboard = (() => {
     ];
 
     const showGameboard = (x, y) => gameboardFields[x][y];
+
+    const checkIfLegalMove = (x, y) => {
+        if (gameboard.showGameboard(x, y) == "") {
+            return true;
+        } else {
+            return false;
+        }
+    }
     
     for (let i = 1; i < 10; i++){
         let indexString = "box" + i.toString();
@@ -17,7 +25,7 @@ const gameboard = (() => {
         });
     }
 
-    return { showGameboard };
+    return { showGameboard, checkIfLegalMove };
 })();
 
 const Player = (name, mark) => {
