@@ -7,7 +7,7 @@ const gameboard = (() => {
         ["", "", "O"]
     ];
 
-    const showGameboard = () => gameboardFields;
+    const showGameboard = (x,y) => gameboardFields[x][y];
     return {
         showGameboard
     }
@@ -28,5 +28,5 @@ const gameFlow = (() => {
 })();
 
 const displayController = (() => {
-    
+    console.log(gameboard.showGameboard(1,1));
 })();
