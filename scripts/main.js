@@ -9,13 +9,18 @@ const gameboard = (() => {
 
     const showGameboard = (y, x) => gameboardFields[y][x];
 
-    const checkIfLegalMove = (x, y) => {
-        console.log(gameboard.showGameboard(x, y));
-        if (gameboard.showGameboard(x, y) == "") {
+    const checkIfLegalMove = (y, x) => {
+        if (gameboard.showGameboard(y, x) == "") {
             return true;
         } else {
             return false;
         }
+    };
+
+    const addMark = (y, x) => {
+        let mark = player1.getMark();
+        gameboardFields[y][x] = mark;
+
     };
     
     for (let i = 1; i < 10; i++){
@@ -23,24 +28,30 @@ const gameboard = (() => {
         const currentBox = document.querySelector(`#${indexString}`);
         currentBox.addEventListener("click", () => {
             const list = currentBox.classList;
-            const [x, y] = getCoordinates(list);
-            console.log(x, y);
-            console.log(gameboard.checkIfLegalMove(x,y));
+            const [y, x] = getCoordinates(list);
+
+            console.log(y, x)
+            console.log(gameboard.showGameboard(y, x))
+
+            if (gameboard.checkIfLegalMove(y, x) == true) {
+                gameboard.addMark(y, x);
+                console.log("new mark " + gameboard.showGameboard(y, x))
+            }
+
         });
     }
 
     function getCoordinates(list) {
-        let x = 0;
         let y = 0;
+        let x = 0;
 
         const coordinate = list[0];
-        x = coordinate.slice(1, 2);
-        y = coordinate.slice(3);
-        console.log(x, y);
-        return [x, y];
+        y = coordinate.slice(1, 2);
+        x = coordinate.slice(3);
+        return [y, x];
     }
 
-    return { showGameboard, checkIfLegalMove, getCoordinates };
+    return { showGameboard, checkIfLegalMove, getCoordinates, addMark };
 })();
 
 const Player = (name, mark) => {
@@ -82,7 +93,7 @@ const displayController = (() => {
         let id = 1;
         for (let y = 0; y < 3; y++){
             for (let x = 0; x < 3; x++){
-                let mark = gameboard.showGameboard(x, y);
+                let mark = gameboard.showGameboard(y, x);
                 let indexString = "box" + id.toString();
                 const currentBox = document.querySelector(`#${indexString}`);
                 currentBox.textContent = mark;
