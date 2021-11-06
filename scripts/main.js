@@ -7,9 +7,10 @@ const gameboard = (() => {
         ["", "", "O"]
     ];
 
-    const showGameboard = (x, y) => gameboardFields[x][y];
+    const showGameboard = (y, x) => gameboardFields[y][x];
 
     const checkIfLegalMove = (x, y) => {
+        console.log(gameboard.showGameboard(x, y));
         if (gameboard.showGameboard(x, y) == "") {
             return true;
         } else {
@@ -24,6 +25,7 @@ const gameboard = (() => {
             const list = currentBox.classList;
             const [x, y] = getCoordinates(list);
             console.log(x, y);
+            console.log(gameboard.checkIfLegalMove(x,y));
         });
     }
 
@@ -34,7 +36,7 @@ const gameboard = (() => {
         const coordinate = list[0];
         x = coordinate.slice(1, 2);
         y = coordinate.slice(3);
-
+        console.log(x, y);
         return [x, y];
     }
 
@@ -80,7 +82,7 @@ const displayController = (() => {
         let id = 1;
         for (let y = 0; y < 3; y++){
             for (let x = 0; x < 3; x++){
-                let mark = gameboard.showGameboard(y, x);
+                let mark = gameboard.showGameboard(x, y);
                 let indexString = "box" + id.toString();
                 const currentBox = document.querySelector(`#${indexString}`);
                 currentBox.textContent = mark;
