@@ -36,6 +36,9 @@ const gameboard = (() => {
             if (gameboard.checkIfLegalMove(y, x) == true) {
                 gameboard.addMark(y, x);
                 console.log("new mark " + gameboard.showGameboard(y, x))
+
+                displayController.renderGameboard();
+                gameFlow.switchTurn();
             }
 
         });
@@ -74,6 +77,8 @@ const gameFlow = (() => {
             turnOfPlayer = player1;
         }
     }
+
+    
     /*
     do {
 
