@@ -2,9 +2,9 @@
 
 const gameboard = (() => {
     let gameboardFields = [
-        ["", "", ""],
-        ["", "", ""],
-        ["", "", ""]
+        ["X", "", "O"],
+        ["O", "X", "X"],
+        ["", "", "O"]
     ];
 
     const showGameboard = () => gameboardFields;
@@ -12,8 +12,6 @@ const gameboard = (() => {
         showGameboard
     }
 })();
-
-console.log(gameboard.showGameboard());
 
 const Player = (name, mark) => {
     const getName = () => name;
@@ -24,9 +22,6 @@ const Player = (name, mark) => {
 
 const player1 = Player("Player 1", "X");
 const player2 = Player("Player 2", "O");
-
-console.log(player1.getName());
-console.log(player2.getMark());
 
 const gameFlow = (() => {
     
