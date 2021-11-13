@@ -2,9 +2,9 @@
 
 const gameboard = (() => {
     let gameboardFields = [
-        ["X", "", "O"],
-        ["O", "X", "X"],
-        ["", "", "O"]
+        ["", "", ""],
+        ["", "", ""],
+        ["", "", ""]
     ];
 
     const showGameboard = (y, x) => gameboardFields[y][x];
@@ -18,7 +18,8 @@ const gameboard = (() => {
     };
 
     const addMark = (y, x) => {
-        let mark = player1.getMark();
+        let currentPlayer = gameFlow.turnOfPlayer;
+        let mark = currentPlayer.getMark();
         gameboardFields[y][x] = mark;
 
     };
@@ -30,12 +31,8 @@ const gameboard = (() => {
             const list = currentBox.classList;
             const [y, x] = getCoordinates(list);
 
-            console.log(y, x)
-            console.log(gameboard.showGameboard(y, x))
-
             if (gameboard.checkIfLegalMove(y, x) == true) {
                 gameboard.addMark(y, x);
-                console.log("new mark " + gameboard.showGameboard(y, x))
 
                 displayController.renderGameboard();
                 gameFlow.switchTurn();
@@ -57,39 +54,31 @@ const gameboard = (() => {
     return { showGameboard, checkIfLegalMove, getCoordinates, addMark };
 })();
 
-const Player = (name, mark) => {
-    const getName = () => name;
+const Player = (nameOnDisplay, mark, internalName) => {
+    const getNameOnDisplay = () => nameOnDisplay;
     const getMark = () => mark;
+    const getInternalName = () => internalName;
 
-    return { getName, getMark };
+    return { getNameOnDisplay, getMark, getInternalName };
 };
 
-const player1 = Player("Player 1", "X");
-const player2 = Player("Player 2", "O");
+const player1 = Player("Player 1", "X", "player1");
+const player2 = Player("Player 2", "O", "player2");
 
 const gameFlow = (() => {
     let endOfGame = false;
     let turnOfPlayer = player1;
     const switchTurn = () => {
-        if (turnOfPlayer = player1) {
+        if (turnOfPlayer.getInternalName() == "player1") {
             turnOfPlayer = player2;
         } else {
             turnOfPlayer = player1;
         }
+        console.log(turnOfPlayer.getNameOnDisplay());
     }
 
     
-    /*
-    do {
-
-
-
-
-
-        displayController.renderGameboard();
-        gameFlow.switchTurn();
-    } while (endOfGame == false);
-    */
+    
     return { endOfGame, turnOfPlayer, switchTurn };
 })();
 
@@ -110,3 +99,6 @@ const displayController = (() => {
 })();
 
 displayController.renderGameboard();
+
+console.log(player1.getName());
+console.log(gameFlow.turnOfPlayer);
