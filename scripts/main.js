@@ -18,10 +18,9 @@ const gameboard = (() => {
     };
 
     const addMark = (y, x) => {
-        let currentPlayer = gameFlow.turnOfPlayer;
+        let currentPlayer = gameFlow.getPlayerOnTurn();
         let mark = currentPlayer.getMark();
         gameboardFields[y][x] = mark;
-
     };
     
     for (let i = 1; i < 10; i++){
@@ -32,10 +31,13 @@ const gameboard = (() => {
             const [y, x] = getCoordinates(list);
 
             if (gameboard.checkIfLegalMove(y, x) == true) {
+                console.log("before move" + gameFlow.turnOfPlayer.getInternalName());
                 gameboard.addMark(y, x);
-
+                
                 displayController.renderGameboard();
                 gameFlow.switchTurn();
+                console.log("after passing switch turn to gameboard"+gameFlow.turnOfPlayer.getInternalName());
+                console.log("my new method " +gameFlow.getPlayerOnTurn().getInternalName());
             }
 
         });
@@ -69,17 +71,19 @@ const gameFlow = (() => {
     let endOfGame = false;
     let turnOfPlayer = player1;
     const switchTurn = () => {
+        console.log("before switching turn"+turnOfPlayer.getInternalName());
         if (turnOfPlayer.getInternalName() == "player1") {
             turnOfPlayer = player2;
         } else {
             turnOfPlayer = player1;
         }
-        console.log(turnOfPlayer.getNameOnDisplay());
+        console.log("after switching turn"+turnOfPlayer.getInternalName());
     }
 
+    const getPlayerOnTurn = () => turnOfPlayer;
     
     
-    return { endOfGame, turnOfPlayer, switchTurn };
+    return { endOfGame, turnOfPlayer, switchTurn, getPlayerOnTurn };
 })();
 
 const displayController = (() => {
@@ -99,6 +103,3 @@ const displayController = (() => {
 })();
 
 displayController.renderGameboard();
-
-console.log(player1.getName());
-console.log(gameFlow.turnOfPlayer);
