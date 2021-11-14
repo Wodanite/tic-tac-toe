@@ -103,6 +103,24 @@ const gameFlow = (() => {
                 }
             }
         }
+        if (endOfGame == false) {
+            for (let i = 0; i < 3; i++) {
+                marks[i] = gameboard.showGameboard(i, i);
+            }
+            if (marks[0] == currentMark && marks[1] == currentMark && marks[2] == currentMark) {
+                endOfGame = true;
+                console.log("right down");
+            }
+        }
+        if (endOfGame == false) {
+            for (let x = 0; x < 3; x++) {
+                marks[x] = gameboard.showGameboard(2 - x, x);
+            }
+            if (marks[0] == currentMark && marks[1] == currentMark && marks[2] == currentMark) {
+                endOfGame = true;
+                console.log("right up");
+            }
+        }
     }
 
 
