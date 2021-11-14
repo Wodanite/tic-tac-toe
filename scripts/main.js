@@ -67,6 +67,7 @@ const player2 = Player("Player 2", "O", "player2");
 
 const gameFlow = (() => {
     let endOfGame = false;
+    let isDraw = false;
     let turnOfPlayer = player1;
     const switchTurn = () => {
         if (turnOfPlayer.getInternalName() == "player1") {
@@ -121,6 +122,23 @@ const gameFlow = (() => {
                 console.log("right up");
             }
         }
+        if (endOfGame == false) {
+            let voidRowsCount = 0;
+            for (let y = 0; y < 3; y++) {
+                for (let x = 0; x < 3; x++) {
+                    marks[x] = gameboard.showGameboard(y, x);
+                }
+                if (marks.includes("") == false) {
+                    voidRowsCount++;
+                }
+            }
+            if (voidRowsCount == 3) {
+                endOfGame = true;
+                isDraw = true;
+                console.log(`voidRowsCount: ${voidRowsCount} isDraw: ${isDraw}`);
+            }
+        }
+
     }
 
 
