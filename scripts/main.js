@@ -34,8 +34,16 @@ const gameboard = (() => {
                 gameboard.addMark(y, x);
 
                 displayController.renderGameboard();
-                gameFlow.checkEndOfGame();
-                gameFlow.switchTurn();
+                const [isEndOfGame, isDraw] = gameFlow.checkEndOfGame();
+                console.log(isEndOfGame, isDraw);
+                if (isEndOfGame == false) {
+                    gameFlow.switchTurn();
+                } else if (isEndOfGame == true && isDraw == false) {
+                    displayController.announceWinner();
+                } else {
+                    displayController.announceDraw();
+                }
+
             }
 
         });
@@ -66,8 +74,6 @@ const player1 = Player("Player 1", "X", "player1");
 const player2 = Player("Player 2", "O", "player2");
 
 const gameFlow = (() => {
-    let endOfGame = false;
-    let isDraw = false;
     let turnOfPlayer = player1;
     const switchTurn = () => {
         if (turnOfPlayer.getInternalName() == "player1") {
@@ -80,6 +86,8 @@ const gameFlow = (() => {
     const getPlayerOnTurn = () => turnOfPlayer;
 
     const checkEndOfGame = () => {
+        let endOfGame = false;
+        let isDraw = false;
         let marks = ["", "", ""];
         let currentMark = turnOfPlayer.getMark();
         for (let y = 0; y < 3; y++) {
@@ -90,17 +98,13 @@ const gameFlow = (() => {
                 endOfGame = true;
             }
         }
-        console.log("between the loops " + endOfGame);
         if (endOfGame == false) {
             for (let x = 0; x < 3; x++) {
-                console.log("in the second loop " + endOfGame);
                 for (let y = 0; y < 3; y++) {
                     marks[y] = gameboard.showGameboard(y, x);
                 }
-                console.log(marks);
                 if (marks[0] == currentMark && marks[1] == currentMark && marks[2] == currentMark) {
                     endOfGame = true;
-                    console.log("in the loop " + endOfGame);
                 }
             }
         }
@@ -110,7 +114,6 @@ const gameFlow = (() => {
             }
             if (marks[0] == currentMark && marks[1] == currentMark && marks[2] == currentMark) {
                 endOfGame = true;
-                console.log("right down");
             }
         }
         if (endOfGame == false) {
@@ -119,7 +122,6 @@ const gameFlow = (() => {
             }
             if (marks[0] == currentMark && marks[1] == currentMark && marks[2] == currentMark) {
                 endOfGame = true;
-                console.log("right up");
             }
         }
         if (endOfGame == false) {
@@ -135,14 +137,13 @@ const gameFlow = (() => {
             if (voidRowsCount == 3) {
                 endOfGame = true;
                 isDraw = true;
-                console.log(`voidRowsCount: ${voidRowsCount} isDraw: ${isDraw}`);
             }
         }
-
+        return [endOfGame, isDraw];
     }
 
 
-    return { endOfGame, turnOfPlayer, switchTurn, getPlayerOnTurn, checkEndOfGame };
+    return { turnOfPlayer, switchTurn, getPlayerOnTurn, checkEndOfGame };
 })();
 
 const displayController = (() => {
@@ -158,7 +159,16 @@ const displayController = (() => {
             }
         }
     }
-    return { renderGameboard };
+
+    const announceWinner = () => {
+        console.log(`The winner is ${gameFlow.getPlayerOnTurn().getNameOnDisplay()}!`);
+    }
+
+    const announceDraw = () => {
+        console.log("It's a Draw!");
+    }
+
+    return { renderGameboard, announceWinner, announceDraw };
 })();
 
 displayController.renderGameboard();
