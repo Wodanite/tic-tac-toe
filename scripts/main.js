@@ -82,6 +82,8 @@ const player2 = Player("Player 2", "O", "player2");
 
 
 const displayController = (() => {
+    const announcementsDisplay = document.querySelector("#announcementsDisplay");
+
     const renderGameboard = () => {
         let id = 1;
         for (let y = 0; y < 3; y++) {
@@ -96,11 +98,11 @@ const displayController = (() => {
     }
 
     const announceWinner = () => {
-        console.log(`The winner is ${gameFlow.getPlayerOnTurn().getNameOnDisplay()}!`);
+        announcementsDisplay.textContent = `The winner is ${gameFlow.getPlayerOnTurn().getNameOnDisplay()}!`;
     }
 
     const announceDraw = () => {
-        console.log("It's a Draw!");
+        announcementsDisplay.textContent = `It's a Draw!`;
     }
 
     return { renderGameboard, announceWinner, announceDraw };
