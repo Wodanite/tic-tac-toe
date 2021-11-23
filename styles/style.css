@@ -1,7 +1,7 @@
 #gameboard{
     display: flex;
     flex-wrap: wrap;
-    width: 320px;
+    width: 306px;
 }
 
 .firstRow>div, .secondRow>div, .thirdRow>div{
@@ -19,4 +19,26 @@
     height: 100px;
     width: 500px;
     background-color: burlywood;
+}
+
+header{
+    height: 100px;
+    width: 100%;
+    background-color: darkgoldenrod;
+}
+
+main{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.playerSection{
+    height: 500px;
+    width: 300px;
+    background-color: coral;
+}
+
+.lowerSection{
+    width: 100%;
+    background-color: darkcyan;
 }

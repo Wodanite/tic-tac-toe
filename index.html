@@ -13,30 +13,46 @@
 </head>
 
 <body>
-    <div id="gameboard">
-        <div class="firstRow">
-            <div class="y0x0" id="box1"></div>
-            <div class="y0x1" id="box2"></div>
-            <div class="y0x2" id="box3"></div>
-        </div>
-        <div class="secondRow">
-            <div class="y1x0" id="box4"></div>
-            <div class="y1x1" id="box5"></div>
-            <div class="y1x2" id="box6"></div>
-        </div>
-        <div class="thirdRow">
-            <div class="y2x0" id="box7"></div>
-            <div class="y2x1" id="box8"></div>
-            <div class="y2x2" id="box9"></div>
-        </div>
-    </div>
+    <header>
+        <h1>Tic Tac Toe</h1>
+    </header>
 
-    <div>
-        <button id="restartButton">Restart</button>
-    </div>
-    <div id="announcementsDisplay">
+    <main>
+        <div class="playerSection"></div>
 
-    </div>
+        <div class="gameboardSection">
+            <div id="gameboard">
+                <div class="firstRow">
+                    <div class="y0x0" id="box1"></div>
+                    <div class="y0x1" id="box2"></div>
+                    <div class="y0x2" id="box3"></div>
+                </div>
+                <div class="secondRow">
+                    <div class="y1x0" id="box4"></div>
+                    <div class="y1x1" id="box5"></div>
+                    <div class="y1x2" id="box6"></div>
+                </div>
+                <div class="thirdRow">
+                    <div class="y2x0" id="box7"></div>
+                    <div class="y2x1" id="box8"></div>
+                    <div class="y2x2" id="box9"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="playerSection"></div>
+
+        <div class="lowerSection">
+            <div>
+                <button id="restartButton">Restart</button>
+            </div>
+            <div id="announcementsDisplay">
+
+            </div>
+        </div>
+
+    </main>
+
 </body>
 
 </html>
