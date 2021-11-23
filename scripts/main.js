@@ -23,6 +23,14 @@ const gameboard = (() => {
         gameboardFields[y][x] = mark;
     };
 
+    const resetFields = () => {
+        for (let y = 0; y < 3; y++) {
+            for (let x = 0; x < 3; x++) {
+                gameboardFields[y][x] = "";
+            }
+        }
+    }
+
     const addFunctionalityToGrid = () => {
         for (let i = 1; i < 10; i++) {
             let indexString = "box" + i.toString();
@@ -65,7 +73,7 @@ const gameboard = (() => {
         return [y, x];
     }
 
-    return { showGameboard, checkIfLegalMove, getCoordinates, addMark, addFunctionalityToGrid };
+    return { showGameboard, checkIfLegalMove, getCoordinates, addMark, addFunctionalityToGrid, resetFields };
 })();
 
 const Player = (nameOnDisplay, mark, internalName) => {
@@ -83,6 +91,7 @@ const player2 = Player("Player 2", "O", "player2");
 
 const displayController = (() => {
     const announcementsDisplay = document.querySelector("#announcementsDisplay");
+    const restartButton = document.querySelector("#restartButton");
 
     const renderGameboard = () => {
         let id = 1;
@@ -105,6 +114,10 @@ const displayController = (() => {
         announcementsDisplay.textContent = `It's a Draw!`;
     }
 
+    restartButton.addEventListener("click", () => {
+        gameFlow.restart();
+    });
+
     return { renderGameboard, announceWinner, announceDraw };
 })();
 
@@ -112,6 +125,7 @@ const gameFlow = (() => {
     displayController.renderGameboard();
     gameboard.addFunctionalityToGrid();
     let turnOfPlayer = player1;
+
     const switchTurn = () => {
         if (turnOfPlayer.getInternalName() == "player1") {
             turnOfPlayer = player2;
@@ -179,6 +193,12 @@ const gameFlow = (() => {
         return [endOfGame, isDraw];
     }
 
+    const restart = () => {
+        gameboard.resetFields();
+        displayController.renderGameboard();
+        announcementsDisplay.textContent = "";
+        turnOfPlayer = player1;
+    }
 
-    return { turnOfPlayer, switchTurn, getPlayerOnTurn, checkEndOfGame };
+    return { turnOfPlayer, switchTurn, getPlayerOnTurn, checkEndOfGame, restart };
 })();
