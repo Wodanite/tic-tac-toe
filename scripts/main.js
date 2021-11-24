@@ -46,7 +46,6 @@ const gameboard = (() => {
 
                         displayController.renderGameboard();
                         const [isEndOfGame, isDraw] = gameFlow.checkEndOfGame();
-                        console.log(isEndOfGame, isDraw);
                         if (isEndOfGame == false) {
                             gameFlow.switchTurn();
                         } else {
@@ -127,15 +126,29 @@ const displayController = (() => {
     const nameButtons = document.querySelectorAll(".playerSection button");
     nameButtons.forEach((button) => {
         button.addEventListener("click", () => {
-            displayController.addFormDiv();
+            let buttonId = button.id;
+            let internalPlayerName = getInternalPlayerName(buttonId);
+            let nameOnDisplay = "";
+            if (player1.getInternalName() == internalPlayerName) {
+                nameOnDisplay = player1.getNameOnDisplay();
+            } else {
+                nameOnDisplay = player2.getNameOnDisplay();
+            }
+            displayController.addFormDiv(nameOnDisplay);
         });
     });
 
-    const addFormDiv = () => {
+    const addFormDiv = (nameOnDisplay) => {
         const nameForm = document.createElement("div");
         nameForm.setAttribute("class", "nameForm");
         document.querySelector(".gameboardSection").appendChild(nameForm);
-        nameForm.innerHTML = "<form><p>Change Name</p><div class='inputContainer'><label for='name'>Name</label><input type='text' name='name' id='nameInput'></div><div class='buttonContainer'><button id='cancelButton'>Cancel</button><button id='changeButton'>OK</button></form>";
+        nameForm.innerHTML = `<form><p>Change Name</p><div class='inputContainer'><label for='name'>Name</label><input type='text' name='name' id='nameInput' value='${nameOnDisplay}'></div><div class='buttonContainer'><button id='cancelButton'>Cancel</button><button id='changeButton'>OK</button></form>`;
+    }
+
+    function getInternalPlayerName(buttonId) {
+        let internalPlayerName = buttonId.slice(-1);
+        internalPlayerName = "player" + internalPlayerName;
+        return internalPlayerName;
     }
 
     return { renderGameboard, announceWinner, announceDraw, changePlayerName, addFormDiv };
