@@ -87,11 +87,13 @@ const Player = (nameOnDisplay, mark, internalName) => {
 const player1 = Player("Player 1", "X", "player1");
 const player2 = Player("Player 2", "O", "player2");
 
-
-
 const displayController = (() => {
     const announcementsDisplay = document.querySelector("#announcementsDisplay");
     const restartButton = document.querySelector("#restartButton");
+    const nameDisplayPlayer1 = document.querySelector("#nameDisplayPlayer1");
+    const nameDisplayPlayer2 = document.querySelector("#nameDisplayPlayer2");
+    const changeNameButtonPlayer1 = document.querySelector("#changeNameButtonPlayer1");
+    const changeNameButtonPlayer2 = document.querySelector("#changeNameButtonPlayer2");
 
     const renderGameboard = () => {
         let id = 1;
@@ -118,7 +120,19 @@ const displayController = (() => {
         gameFlow.restart();
     });
 
-    return { renderGameboard, announceWinner, announceDraw };
+    const changePlayerName = () => {
+
+    }
+
+    const nameButtons = document.querySelectorAll(".playerSection button");
+    nameButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            const changeNameForm = document.createElement("div");
+            console.log(button.id);
+        });
+    });
+
+    return { renderGameboard, announceWinner, announceDraw, changePlayerName };
 })();
 
 const gameFlow = (() => {
