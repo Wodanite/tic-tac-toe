@@ -127,12 +127,18 @@ const displayController = (() => {
     const nameButtons = document.querySelectorAll(".playerSection button");
     nameButtons.forEach((button) => {
         button.addEventListener("click", () => {
-            const changeNameForm = document.createElement("div");
-            console.log(button.id);
+            displayController.addFormDiv();
         });
     });
 
-    return { renderGameboard, announceWinner, announceDraw, changePlayerName };
+    const addFormDiv = () => {
+        const nameForm = document.createElement("div");
+        nameForm.setAttribute("class", "nameForm");
+        document.querySelector(".gameboardSection").appendChild(nameForm);
+        nameForm.innerHTML = "<form><p>Change Name</p><div class='inputContainer'><label for='name'>Name</label><input type='text' name='name' id='nameInput'></div><div class='buttonContainer'><button id='cancelButton'>Cancel</button><button id='changeButton'>OK</button></form>";
+    }
+
+    return { renderGameboard, announceWinner, announceDraw, changePlayerName, addFormDiv };
 })();
 
 const gameFlow = (() => {

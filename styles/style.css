@@ -48,3 +48,19 @@ main{
     width: 100%;
     background-color: darkcyan;
 }
+
+.nameForm{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color:dodgerblue;
+    height: 150px;
+    width: 300px;
+    position: absolute;
+    left: 50%;
+    top: 300px;
+    transform: translateX(-50%);
+    border: none;
+    border-radius: 5px;
+}
