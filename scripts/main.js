@@ -79,8 +79,11 @@ const Player = (nameOnDisplay, mark, internalName) => {
     const getNameOnDisplay = () => nameOnDisplay;
     const getMark = () => mark;
     const getInternalName = () => internalName;
+    const setNameOnDisplay = (nameInput) => {
+        nameOnDisplay = nameInput;
+    }
 
-    return { getNameOnDisplay, getMark, getInternalName };
+    return { getNameOnDisplay, getMark, getInternalName, setNameOnDisplay };
 };
 
 const player1 = Player("Player 1", "X", "player1");
@@ -129,20 +132,31 @@ const displayController = (() => {
             let buttonId = button.id;
             let internalPlayerName = getInternalPlayerName(buttonId);
             let nameOnDisplay = "";
+            let player = player2;
             if (player1.getInternalName() == internalPlayerName) {
-                nameOnDisplay = player1.getNameOnDisplay();
-            } else {
-                nameOnDisplay = player2.getNameOnDisplay();
+                player = player1;
             }
-            displayController.addFormDiv(nameOnDisplay);
+            nameOnDisplay = player.getNameOnDisplay();
+            let nameForm = displayController.createFormDiv(nameOnDisplay);
+            document.querySelector(".gameboardSection").appendChild(nameForm);
+            const cancelButton = document.querySelector("#cancelButton");
+            const changeButton = document.querySelector("#changeButton");
+            changeButton.addEventListener("click", () => {
+                let newPlayerName = document.querySelector("#nameInput");
+                player.setNameOnDisplay(newPlayerName);
+                let displayName = "nameDisplayPlayer" + buttonId.slice(-1);
+                document.querySelector(`#${displayName}`).innerText = player.getNameOnDisplay();
+                document.querySelector(".gameboardSection").removeChild(nameForm);
+            });
         });
     });
 
-    const addFormDiv = (nameOnDisplay) => {
+    const createFormDiv = (nameOnDisplay) => {
         const nameForm = document.createElement("div");
         nameForm.setAttribute("class", "nameForm");
-        document.querySelector(".gameboardSection").appendChild(nameForm);
-        nameForm.innerHTML = `<form><p>Change Name</p><div class='inputContainer'><label for='name'>Name</label><input type='text' name='name' id='nameInput' value='${nameOnDisplay}'></div><div class='buttonContainer'><button id='cancelButton'>Cancel</button><button id='changeButton'>OK</button></form>`;
+
+        nameForm.innerHTML = `<p>Change Name</p><div class='inputContainer'><label for='name'>Name</label><input type='text' name='name' id='nameInput' value='${nameOnDisplay}'></div><div class='buttonContainer'><button id='cancelButton'>Cancel</button><button id='changeButton'>OK</button>`;
+        return nameForm;
     }
 
     function getInternalPlayerName(buttonId) {
@@ -151,7 +165,7 @@ const displayController = (() => {
         return internalPlayerName;
     }
 
-    return { renderGameboard, announceWinner, announceDraw, changePlayerName, addFormDiv };
+    return { renderGameboard, announceWinner, announceDraw, changePlayerName, createFormDiv };
 })();
 
 const gameFlow = (() => {
