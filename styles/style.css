@@ -19,6 +19,11 @@ body{
     height: 100px;
     width: 100px;
     border: 1px solid black;
+    line-height: 100px;
+    white-space: nowrap;
+    text-align: center;
+    font-size: 80px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 #gameboard>div{
@@ -97,6 +102,8 @@ footer{
     margin: 0 auto;
     margin-bottom: 200px;
     background-color: rgba(240, 182, 128, 0.932);
+    font-family: monospace;
+    font-size: 60px;
 }
 
 .nameForm{

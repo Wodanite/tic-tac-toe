@@ -87,8 +87,8 @@ const Player = (nameOnDisplay, mark, internalName) => {
     return { getNameOnDisplay, getMark, getInternalName, setNameOnDisplay };
 };
 
-const player1 = Player("Player 1", "X", "player1");
-const player2 = Player("Player 2", "O", "player2");
+const player1 = Player("Player 1", "x", "player1");
+const player2 = Player("Player 2", "o", "player2");
 
 const displayController = (() => {
     const announcementsDisplay = document.querySelector("#announcementsDisplay");
@@ -161,7 +161,7 @@ const displayController = (() => {
         const nameForm = document.createElement("div");
         nameForm.setAttribute("class", "nameForm");
 
-        nameForm.innerHTML = `<p>Change Name</p><div class='inputContainer'><label for='name'>Name</label><input type='text' name='name' id='nameInput' value='${nameOnDisplay}'></div><div class='buttonContainer'><button id='cancelButton'>Cancel</button><button id='changeButton'>OK</button>`;
+        nameForm.innerHTML = `<p>Change Name</p><div class='inputContainer'><label for='name'>Name</label><input type='text' name='name' id='nameInput' value='${nameOnDisplay}' maxlength='12'></div><div class='buttonContainer'><button id='cancelButton'>Cancel</button><button id='changeButton'>OK</button>`;
         return nameForm;
     }
 
