@@ -139,8 +139,13 @@ const displayController = (() => {
             nameOnDisplay = player.getNameOnDisplay();
             let nameForm = displayController.createFormDiv(nameOnDisplay);
             document.querySelector(".gameboardSection").appendChild(nameForm);
+
             const cancelButton = document.querySelector("#cancelButton");
             const changeButton = document.querySelector("#changeButton");
+
+            cancelButton.addEventListener("click", () => {
+                document.querySelector(".gameboardSection").removeChild(nameForm);
+            });
             changeButton.addEventListener("click", () => {
                 let newPlayerName = document.querySelector("#nameInput").value;
                 player.setNameOnDisplay(newPlayerName);
