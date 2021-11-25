@@ -38,26 +38,27 @@ const gameboard = (() => {
             currentBox.addEventListener("click", function doStuffOnClick() {
                 const [isEndOfGame, isDraw] = gameFlow.checkEndOfGame();
                 if (isEndOfGame == false) {
-                    const list = currentBox.classList;
-                    const [y, x] = getCoordinates(list);
+                    if (displayController.getFormIsActive() == false) {
+                        const list = currentBox.classList;
+                        const [y, x] = getCoordinates(list);
 
-                    if (gameboard.checkIfLegalMove(y, x) == true) {
-                        gameboard.addMark(y, x);
+                        if (gameboard.checkIfLegalMove(y, x) == true) {
+                            gameboard.addMark(y, x);
 
-                        displayController.renderGameboard();
-                        const [isEndOfGame, isDraw] = gameFlow.checkEndOfGame();
-                        if (isEndOfGame == false) {
-                            gameFlow.switchTurn();
-                        } else {
-                            if (isEndOfGame == true && isDraw == false) {
-                                displayController.announceWinner();
+                            displayController.renderGameboard();
+                            const [isEndOfGame, isDraw] = gameFlow.checkEndOfGame();
+                            if (isEndOfGame == false) {
+                                gameFlow.switchTurn();
                             } else {
-                                displayController.announceDraw();
+                                if (isEndOfGame == true && isDraw == false) {
+                                    displayController.announceWinner();
+                                } else {
+                                    displayController.announceDraw();
+                                }
                             }
                         }
                     }
                 }
-
             });
         }
     }
@@ -92,10 +93,7 @@ const player2 = Player("Player 2", "O", "player2");
 const displayController = (() => {
     const announcementsDisplay = document.querySelector("#announcementsDisplay");
     const restartButton = document.querySelector("#restartButton");
-    const nameDisplayPlayer1 = document.querySelector("#nameDisplayPlayer1");
-    const nameDisplayPlayer2 = document.querySelector("#nameDisplayPlayer2");
-    const changeNameButtonPlayer1 = document.querySelector("#changeNameButtonPlayer1");
-    const changeNameButtonPlayer2 = document.querySelector("#changeNameButtonPlayer2");
+    let formIsActive = false;
 
     const renderGameboard = () => {
         let id = 1;
@@ -119,40 +117,43 @@ const displayController = (() => {
     }
 
     restartButton.addEventListener("click", () => {
-        gameFlow.restart();
+        if (displayController.getFormIsActive() == false) {
+            gameFlow.restart();
+        }
     });
-
-    const changePlayerName = () => {
-
-    }
 
     const nameButtons = document.querySelectorAll(".playerSection button");
     nameButtons.forEach((button) => {
         button.addEventListener("click", () => {
-            let buttonId = button.id;
-            let internalPlayerName = getInternalPlayerName(buttonId);
-            let nameOnDisplay = "";
-            let player = player2;
-            if (player1.getInternalName() == internalPlayerName) {
-                player = player1;
+            if (displayController.getFormIsActive() == false) {
+                formIsActive = true;
+                let buttonId = button.id;
+                let internalPlayerName = getInternalPlayerName(buttonId);
+                let nameOnDisplay = "";
+                let player = player2;
+                if (player1.getInternalName() == internalPlayerName) {
+                    player = player1;
+                }
+                nameOnDisplay = player.getNameOnDisplay();
+                let nameForm = displayController.createFormDiv(nameOnDisplay);
+                document.querySelector(".gameboardSection").appendChild(nameForm);
+
+                const cancelButton = document.querySelector("#cancelButton");
+                const changeButton = document.querySelector("#changeButton");
+
+                cancelButton.addEventListener("click", () => {
+                    formIsActive = false;
+                    document.querySelector(".gameboardSection").removeChild(nameForm);
+                });
+                changeButton.addEventListener("click", () => {
+                    formIsActive = false;
+                    let newPlayerName = document.querySelector("#nameInput").value;
+                    player.setNameOnDisplay(newPlayerName);
+                    let displayName = "nameDisplayPlayer" + buttonId.slice(-1);
+                    document.querySelector(`#${displayName}`).innerText = player.getNameOnDisplay();
+                    document.querySelector(".gameboardSection").removeChild(nameForm);
+                });
             }
-            nameOnDisplay = player.getNameOnDisplay();
-            let nameForm = displayController.createFormDiv(nameOnDisplay);
-            document.querySelector(".gameboardSection").appendChild(nameForm);
-
-            const cancelButton = document.querySelector("#cancelButton");
-            const changeButton = document.querySelector("#changeButton");
-
-            cancelButton.addEventListener("click", () => {
-                document.querySelector(".gameboardSection").removeChild(nameForm);
-            });
-            changeButton.addEventListener("click", () => {
-                let newPlayerName = document.querySelector("#nameInput").value;
-                player.setNameOnDisplay(newPlayerName);
-                let displayName = "nameDisplayPlayer" + buttonId.slice(-1);
-                document.querySelector(`#${displayName}`).innerText = player.getNameOnDisplay();
-                document.querySelector(".gameboardSection").removeChild(nameForm);
-            });
         });
     });
 
@@ -170,7 +171,9 @@ const displayController = (() => {
         return internalPlayerName;
     }
 
-    return { renderGameboard, announceWinner, announceDraw, changePlayerName, createFormDiv };
+    const getFormIsActive = () => formIsActive;
+
+    return { renderGameboard, announceWinner, announceDraw, createFormDiv, getFormIsActive };
 })();
 
 const gameFlow = (() => {
