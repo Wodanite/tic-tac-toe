@@ -1,3 +1,14 @@
+html, body{
+    height: 100%;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color:olivedrab;
+}
+
 #gameboard{
     display: flex;
     flex-wrap: wrap;
@@ -15,38 +26,77 @@
     display: flex;
 }
 
-#announcementsDisplay{
-    height: 100px;
-    width: 500px;
-    background-color: burlywood;
+header{
+    width: 100%;
+    background-color: rgb(240, 236, 11);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-header{
-    height: 100px;
-    width: 100%;
-    background-color: darkgoldenrod;
+h1{
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    font-size: 84px;
+    margin: 10px;
 }
 
 main{
     display: flex;
     flex-wrap: wrap;
+    width: 956px;
+    flex: 1 0 auto;
+    justify-content: space-evenly;
 }
 
 .playerSection{
     height: 500px;
     width: 300px;
-    background-color: coral;
+}
+
+#playerSection1{
+    background-color:rgb(0, 45, 168);
+}
+
+#playerSection2{
+    background-color:maroon;
 }
 
 .nameDisplay{
-    height: 60px;
-    width: 70%;
+    width: 78%;
     background-color: darksalmon;
+    margin: 20px;
+    font-size: 30px;
+    font-family: monospace;
+    padding: 15px;
 }
 
-.lowerSection{
+.playerSection>button{
+    margin: 0px 20px;
+    font-size: 13px;
+    padding: 1px 6px;
+}
+
+footer{
     width: 100%;
+    flex-shrink: 0;
     background-color: darkcyan;
+}
+
+.restartButtonBox{
+    margin: 10px 10px 0px 10px;
+}
+
+#restartButton{
+    font-size: 18px;
+    padding: 3px 12px;
+}
+
+#announcementsDisplay{
+    height: 150px;
+    width: 600px;
+    margin: 0 auto;
+    margin-bottom: 200px;
+    background-color: rgba(240, 182, 128, 0.932);
 }
 
 .nameForm{
