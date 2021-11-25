@@ -142,7 +142,7 @@ const displayController = (() => {
             const cancelButton = document.querySelector("#cancelButton");
             const changeButton = document.querySelector("#changeButton");
             changeButton.addEventListener("click", () => {
-                let newPlayerName = document.querySelector("#nameInput");
+                let newPlayerName = document.querySelector("#nameInput").value;
                 player.setNameOnDisplay(newPlayerName);
                 let displayName = "nameDisplayPlayer" + buttonId.slice(-1);
                 document.querySelector(`#${displayName}`).innerText = player.getNameOnDisplay();
