@@ -161,7 +161,7 @@ const displayController = (() => {
         const nameForm = document.createElement("div");
         nameForm.setAttribute("class", "nameForm");
 
-        nameForm.innerHTML = `<p>Change Name</p><div class='inputContainer'><label for='name'>Name</label><input type='text' name='name' id='nameInput' value='${nameOnDisplay}' maxlength='12'></div><div class='buttonContainer'><button id='cancelButton'>Cancel</button><button id='changeButton'>OK</button>`;
+        nameForm.innerHTML = `<p class='formTitle'>Change Name</p><div class='inputContainer'><label for='name'>Name</label><input type='text' name='name' id='nameInput' value='${nameOnDisplay}' maxlength='12'></div><div class='buttonContainer'><button id='cancelButton'>Cancel</button><button id='changeButton'>OK</button>`;
         return nameForm;
     }
 
